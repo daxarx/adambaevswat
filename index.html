@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adambaev Swatting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #000;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e90ff;
+        }
+
+        textarea {
+            width: calc(100% - 20px);
+            height: 150px;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #666;
+            border-radius: 4px;
+            resize: vertical;
+            color: #fff;
+            background-color: #000;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #fff;
+            background-color: #007bff;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Adambaev Sw@t</h1>
+        
+        <div>
+            <textarea id="inputText" placeholder="Введите ваш текст.."></textarea>
+        </div>
+
+        <div>
+            <button onclick="translateText()">Заменить</button>
+            <button onclick="clearOutput()">Очистить</button>
+            <button onclick="copyOutput()">Скопировать</button>
+        </div>
+        
+        <div>
+            <textarea id="outputText" readonly></textarea>
+        </div>
+    </div>
+
+    <script>
+        var translateMap = {
+            'з': '3', 'е': '3', 'Е': '3', 'З': '3', 'z': '3',
+            'о': '0', 'o': '0', 'и': 'u', 'И': 'U', 'i': '1',
+            'А': '4', 'а': '4', 'a': '4', 'A': '4'
+        };
+
+        async function translateText() {
+            var inputText = document.getElementById('inputText').value;
+            var translatedText = await translateWithMap(inputText, translateMap);
+            document.getElementById('outputText').value = translatedText;
+        }
+
+        async function translateWithMap(text, map) {
+            return text.replace(/[зеЕЗzoоОиИiАаА]/g, function(match) {
+                return map[match];
+            });
+        }
+
+        function clearOutput() {
+            document.getElementById('outputText').value = '';
+        }
+
+        function copyOutput() {
+            var outputText = document.getElementById('outputText');
+            outputText.select();
+            document.execCommand('copy');
+        }
+    </script>
+</body>
+</html>
